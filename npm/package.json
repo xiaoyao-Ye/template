@@ -2,9 +2,19 @@
   "name": "npm-template",
   "version": "1.0.0",
   "description": "npm template",
-  "main": "index.js",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
-    "dev": "node index.js",
+    "dev": "unbuild --stub && node ./dist/index.mjs",
+    "build": "unbuild",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks",
     "lint:eslint": "eslint . --fix",
@@ -12,8 +22,12 @@
     "commit": "git-cz",
     "commit:origin": "git pull && git add . && git-cz && git push"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "keywords": [],
-  "author": "xiaoyao-Ye",
+  "author": "_Ghosteye",
   "license": "ISC",
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.8",
@@ -25,7 +39,9 @@
     "git-cz": "^4.9.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
-    "simple-git-hooks": "^2.8.1"
+    "simple-git-hooks": "^2.8.1",
+    "typescript": "^5.2.2",
+    "unbuild": "^2.0.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
